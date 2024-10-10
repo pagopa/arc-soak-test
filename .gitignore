@@ -1,35 +1,6 @@
-######################
-# Windows
-######################
-# Windows image file caches
-Thumbs.db
+k6
+k6.*
+.idea/
+/.idea/
 
-# Folder config file
-Desktop.ini
-
-######################
-# Mac OSX
-######################
-.DS_Store
-.svn
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-######################
-# Package Files
-######################
-*.jar
-*.war
-*.ear
-*.db
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+results/*
