@@ -43,8 +43,9 @@ export const CONFIG = {
 
     RAMPS: {
       STAGES_NUMBER: rampStageNumber,
-      STAGE_SECONDS_DURATION: parseInt(
-        coalesce(__ENV.SCENARIO_TIME_UNIT_ENV, 1)
+      STAGE_SECONDS_DURATION: Math.max(
+        parseInt(coalesce(__ENV.SCENARIO_DURATION_ENV, 1)) / rampStageNumber,
+        1
       ),
 
       rampingGrowingArrivalRate: {

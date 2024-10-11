@@ -20,24 +20,24 @@ All configured tests as default will be executed simulating the following worklo
 
 The following environment variables allow to configure the scenarios discuessed above:
 
-| ENV                                  | Description                                                                                                                                  | Default |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| TARGET_ENV                           | The environment to test                                                                                                                      |         |
-| USE_INTERNAL_ACCESS_ENV              | If use always internal base url or not                                                                                                       | false   |
-| RESULTS_DIR                          | The directory inside which create the results dir                                                                                            | .       |
-| REQ_DUMP                             | A boolen to log all requests or not                                                                                                          | false   |
-| VUS_MAX_ENV                          | The maximum number of parallel clients to simulate                                                                                           | 3       |
-| MAX_AVAILABLE_TEST_ENTITIES_ENV      | Scenario perVuIterations with multiple iterations: maximum number of executions                                                              | 3       |
-| SCENARIO_TYPE_ENV                    | The comma separated names of the scenarios to execute. Use the keys listed in [Scenarios](#Scenarios) paragraph                              | ALL     |
-| SCENARIO_PER_VU_SINGLE_ITERATION_ENV | perVuIterations scenario: if run a single iteration or multiple consecutive until consume all MAX_AVAILABLE_TEST_ENTITIES_ENV                | false   |
-| SCENARIO_PER_VU_EXECUTIONS_ENV       | perVuIterations scenario: the number of executions which each client will perform                                                            | 1       |
-| SCENARIO_DURATION_ENV                | perVuIterations,constantArrivalRate scenario: Duration of the scenario expressed as the temporal unit defined through SCENARIO_TIME_UNIT_ENV | 10      |
-| SCENARIO_TIME_UNIT_ENV               | constantArrivalRate, rampingArrivalRate scenario: scenario time unit expressed as seconds                                                    | 1       |
-| SCENARIO_RAMP_STAGE_NUMBER_ENV       | rampingArrivalRate scenario: the number of stages of the ramp                                                                                | 3       |
-| THRESHOLDS_API_MAX_AVG_MS_ENV        | Max AVG duration applied as default to single API tests                                                                                      | 500     |
-| THRESHOLDS_API_MAX_MS_ENV            | Max duration applied as default to single API tests                                                                                          | 1000    |
-| THRESHOLDS_API_MAX_P90_MS_ENV        | Max P90 duration applied as default to single API tests                                                                                      | 800     |
-| THRESHOLDS_API_MAX_P95_MS_ENV        | Max P95 duration applied as default to single API tests                                                                                      | 1000    |
+| ENV                                  | Description                                                                                                                                                                                 | Default |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| TARGET_ENV                           | The environment to test                                                                                                                                                                     |         |
+| USE_INTERNAL_ACCESS_ENV              | If use always internal base url or not                                                                                                                                                      | false   |
+| RESULTS_DIR                          | The directory inside which create the results dir                                                                                                                                           | .       |
+| REQ_DUMP                             | A boolen to log all requests or not                                                                                                                                                         | false   |
+| VUS_MAX_ENV                          | The maximum number of parallel clients to simulate                                                                                                                                          | 3       |
+| MAX_AVAILABLE_TEST_ENTITIES_ENV      | Scenario perVuIterations with multiple iterations: maximum number of executions                                                                                                             | 3       |
+| SCENARIO_TYPE_ENV                    | The comma separated names of the scenarios to execute. Use the keys listed in [Scenarios](#Scenarios) paragraph                                                                             | ALL     |
+| SCENARIO_PER_VU_SINGLE_ITERATION_ENV | perVuIterations scenario: if run a single iteration or multiple consecutive until consume all MAX_AVAILABLE_TEST_ENTITIES_ENV                                                               | false   |
+| SCENARIO_PER_VU_EXECUTIONS_ENV       | perVuIterations scenario: the number of executions which each client will perform                                                                                                           | 1       |
+| SCENARIO_DURATION_ENV                | perVuIterations,constantArrivalRate, rampingArrivalRate, rampingGrowingArrivalRate scenario: Duration of the scenario expressed as the temporal unit defined through SCENARIO_TIME_UNIT_ENV | 10      |
+| SCENARIO_TIME_UNIT_ENV               | constantArrivalRate scenario: scenario time unit expressed as seconds                                                                                                                       | 1       |
+| SCENARIO_RAMP_STAGE_NUMBER_ENV       | rampingArrivalRate, rampingGrowingArrivalRate scenario: the number of stages of the ramp                                                                                                    | 3       |
+| THRESHOLDS_API_MAX_AVG_MS_ENV        | Max AVG duration applied as default to single API tests                                                                                                                                     | 500     |
+| THRESHOLDS_API_MAX_MS_ENV            | Max duration applied as default to single API tests                                                                                                                                         | 1000    |
+| THRESHOLDS_API_MAX_P90_MS_ENV        | Max P90 duration applied as default to single API tests                                                                                                                                     | 800     |
+| THRESHOLDS_API_MAX_P95_MS_ENV        | Max P95 duration applied as default to single API tests                                                                                                                                     | 1000    |
 
 ## Utility scripts
 
