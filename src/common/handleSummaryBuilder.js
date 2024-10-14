@@ -11,7 +11,7 @@ import rampingGrowingArrivalRate from "./dynamicScenarios/scenarios/rampingGrowi
 const outputDir = coalesce(CONFIG.SUMMARY.RESULTS_DIR, ".");
 
 export default (application, testName) => (data) => {
-  const outputFilePrefix = `${application}_${testName}`;
+  const outputFilePrefix = `${application}/${testName}`;
 
   console.log(
     `TEST DETAILS: [Time to complete test: ${data.state.testRunDurationMs} ms, Scenario test type: ${CONFIG.SCENARIOS.TYPES}, Max Number of available entities: ${CONFIG.MAX_AVAILABLE_TEST_ENTITIES_ENV}, Request processed: ${data.metrics.http_reqs.values.count}, Request OK: ${data.metrics.http_req_failed.values.fails}, ERRORS: ${data.metrics.http_req_failed.values.passes}]`

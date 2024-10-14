@@ -68,7 +68,7 @@ parameters:
 variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
   - name: k6Test_getTransactions
-    value: getTransactions
+    value: transactions/getTransactions
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
@@ -127,18 +127,18 @@ jobs:
                       -e THRESHOLDS_API_MAX_P90_MS_ENV=${{ parameters.THRESHOLDS_API_MAX_P90_MS_ENV }} \
                       -e THRESHOLDS_API_MAX_P95_MS_ENV=${{ parameters.THRESHOLDS_API_MAX_P95_MS_ENV }} \
                       \
-                      --entrypoint /app/run.sh \
+                      --entrypoint /app/runAll.sh \
                       grafana/k6:latest \
-                      ${{ parameters.TARGET_ENV }} ./src/tests/${{k6Test}}.js
-              condition: true
-              displayName: Run k6 ${{k6Test}}.js on ${{ parameters.TARGET_ENV }}
+                      ./src/tests/${{k6Test}}.js
+                  condition: true
+                  displayName: Run k6 ${{k6Test}}.js on ${{ parameters.TARGET_ENV }}
 
             - task: PublishTestResults@2
               condition: true
               displayName: "Publishing TestResults of k6 tests in folder: results"
               inputs:
                 testResultsFormat: "JUnit"
-                testResultsFiles: "results/*-result.xml"
+                testResultsFiles: "results/**/*-result.xml"
                 searchFolder: "$(System.DefaultWorkingDirectory)"
                 failTaskOnFailedTests: true
 
