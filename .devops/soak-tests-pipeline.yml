@@ -92,7 +92,7 @@ variables:
 
 jobs:
   - deployment: SoakTest
-    displayName: "Executing ${{ parameters.SCRIPT }} ${{ parameters.SCENARIO }} test on ${{ parameters.TARGET_ENV }} (internal access: ${{ parameters.USE_INTERNAL_ACCESS_ENV }})"
+    displayName: "Executing '${{ parameters.SCRIPT }}'' (${{ parameters.SCENARIO }}) test on ${{ parameters.TARGET_ENV }} (internal access: ${{ parameters.USE_INTERNAL_ACCESS_ENV }})"
     pool:
       name: $(selfHostedAgentPool)
     environment: ${{ upper(parameters.TARGET_ENV) }}
@@ -135,7 +135,7 @@ jobs:
 
             - task: PublishTestResults@2
               condition: true
-              displayName: "Publishing TestResults of k6 tests in folder: results"
+              displayName: "Publishing test results"
               inputs:
                 testResultsFormat: "JUnit"
                 testResultsFiles: "results/**/*-result.xml"
@@ -143,7 +143,7 @@ jobs:
                 failTaskOnFailedTests: true
 
             - task: PublishPipelineArtifact@1
-              displayName: "Publishing results of k6 tests in folder: results"
+              displayName: "Publishing test artifacts"
               condition: true
               inputs:
                 artifact: "results"
