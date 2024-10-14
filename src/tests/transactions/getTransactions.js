@@ -10,7 +10,7 @@ import { logErrorResult } from "../../common/dynamicScenarios/utils.js";
 import { getAuthToken } from "../../common/utils.js";
 
 const application = "transactions";
-const testName = "getTransactionsList";
+const testName = "getTransactions";
 
 // Dynamic scenarios' K6 configuration
 export const options = defaultApiOptionsBuilder(
