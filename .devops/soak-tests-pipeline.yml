@@ -119,8 +119,7 @@ jobs:
                       -e RESULTS_DIR=/app \
                       -e TARGET_ENV=${{ parameters.TARGET_ENV }} \
                       -e USE_INTERNAL_ACCESS_ENV=${{ parameters.USE_INTERNAL_ACCESS_ENV }} \
-                      -e SCRIPT_ENV=${{ parameters.SCRIPT }} \
-                      -e SCENARIO_TYPE_ENV=${{ parameters.SCENARIO_TYPE_ENV }} \
+                      -e SCENARIO_TYPE_ENV=${{ variables.SCENARIO_TYPE_ENV }} \
                       \
                       -e VUS_MAX_ENV=${{ parameters.VUS_MAX_ENV }} \
                       -e SCENARIO_DURATION_ENV=${{ parameters.SCENARIO_DURATION_ENV }} \
