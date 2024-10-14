@@ -77,10 +77,10 @@ variables:
   # Setting env specific settings
   - ${{ if eq(parameters.TARGET_ENV, 'dev') }}:
       - name: selfHostedAgentPool
-        value: cstar-dev-perf-linux
+        value: arc-dev-linux-app
   - ${{ else }}:
       - name: selfHostedAgentPool
-        value: cstar-uat-perf-linux
+        value: arc-uat-linux-app
 
   # Decoding scenario type
   - ${{ if eq(parameters.SCENARIO, 'Fixed TPS') }}:
