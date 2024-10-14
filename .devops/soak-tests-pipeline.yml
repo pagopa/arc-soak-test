@@ -9,10 +9,10 @@ parameters:
   - name: "TARGET_ENV"
     displayName: "Target Environment"
     type: string
-    default: "uat"
+    default: "UAT"
     values:
-      - "dev"
-      - "uat"
+      - "DEV"
+      - "UAT"
 
   - name: "USE_INTERNAL_ACCESS_ENV"
     displayName: "Internal access to k8s services"
@@ -92,7 +92,7 @@ variables:
 
 jobs:
   - deployment: SoakTest
-    displayName: "Executing ${{ parameters.SCENARIO }} on ${{ parameters.TARGET_ENV }} (internal access: ${{ parameters.USE_INTERNAL_ACCESS_ENV }})"
+    displayName: "Executing ${{ parameters.SCRIPT }} ${{ parameters.SCENARIO }} test on ${{ parameters.TARGET_ENV }} (internal access: ${{ parameters.USE_INTERNAL_ACCESS_ENV }})"
     pool:
       name: $(selfHostedAgentPool)
     environment: ${{ upper(parameters.TARGET_ENV) }}
