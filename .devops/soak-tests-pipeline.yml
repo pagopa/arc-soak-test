@@ -101,9 +101,13 @@ jobs:
         deploy:
           steps:
             - checkout: self
+              displayName: Checkout
+              fetchDepth: 1
+
             - script: |
                 docker pull grafana/k6:latest
               displayName: Pull k6 image
+
             - ${{ each k6Test in split(variables.SCRIPTS_TO_EXECUTE, ',') }}:
                 - script: |
                     chmod +x runAll.sh
