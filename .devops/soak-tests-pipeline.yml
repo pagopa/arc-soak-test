@@ -100,12 +100,6 @@ jobs:
       runOnce:
         deploy:
           steps:
-            - ${{ if eq(parameters.AUTHORIZATION_TOKEN, 'Secret') }}:
-                - task: AzureKeyVault@2
-                  inputs:
-                    connectedServiceName: $(${{ variables.azureServiceName }})
-                    keyVaultName: $(azureKeyVaultName)
-                    secretsFilter: "load-test-authorization-token"
             - checkout: self
             - script: |
                 docker pull grafana/k6:latest
