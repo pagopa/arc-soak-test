@@ -2,7 +2,7 @@
 
 # Execute a single test on target environment.
 #
-# Usage: ./run.sh testFile.js
+# Usage: ./run.sh (DEV|UAT) src/tests/testFile.js
 # See README file for environment variables settings
 
 export RESULTS_DIR=$RESULTS_DIR || $(dirname $0)
@@ -18,15 +18,13 @@ fi
 
 set -e
 
-FILE=./local.env
-if [ -f "$FILE" ]; then
-    echo "$FILE exists."
-  set -o allexport
-  source $FILE
-  set +o allexport
-fi
+export TARGET_ENV=$1
+TEST_FILE=$2
 
-TEST_FILE=$1
+if [[ -z "$TARGET_ENV" || ! $(echo $TARGET_ENV | grep  -E "^(DEV|UAT)$") || -z "$TEST_FILE" ]]; then
+  echo "Usage: ./run.sh <DEV|UAT> src/tests/testFile.js"
+  exit 0
+fi
 
 echo "Running $TEST_FILE"
 

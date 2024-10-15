@@ -43,7 +43,7 @@ The following environment variables allow to configure the scenarios discuessed 
 
 Inside this repository there are some usefull scripts which will simplify test executions:
 
-| SCRIPT    | Description                                                      |
-| --------- | ---------------------------------------------------------------- |
-| run.sh    | It will run a single \*\*.js test inside the `src/tests` folder. |
-| runAll.sh | It will run all the tests inside the `src/tests` folder.         |
+| SCRIPT    | Description                                                                                |
+| --------- | ------------------------------------------------------------------------------------------ |
+| run.sh    | It will run a single \*\*.js test inside the `src/tests` folder.                           |
+| runAll.sh | It will run all the tests inside the `src/tests` folder, optionally setting a base folder. |
