@@ -4,7 +4,7 @@ import { buildDefaultParams } from "../common/envVars.js";
 import { getBaseUrl, getInnerBaseUrl } from "../common/environment.js";
 
 export const AUTH_API_NAMES = {
-  getAuthTokenTestUser: "transactions/getAuthTokenTestUser",
+  getAuthTokenTestUser: "auth/getAuthTokenTestUser",
   getUserInfo: "auth/getUserInfo",
 };
 
