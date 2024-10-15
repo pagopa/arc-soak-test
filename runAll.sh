@@ -3,7 +3,8 @@
 # Quickly perform a load tests on target environment by running each
 # test found under src/tests/[folder] once (if folder is not provided, it will run all tests).
 #
-# Usage: ./runAll.sh <DEV|UAT|PROD> [folder]
+# Usage: ./runAll.sh [folder]
+# See README file for environment variables settings
 
 CURRENT_DIR=$(dirname $0)
 

@@ -2,7 +2,8 @@
 
 # Execute a single test on target environment.
 #
-# Usage: ./run.sh <DEV|UAT|PROD> testFile.js
+# Usage: ./run.sh testFile.js
+# See README file for environment variables settings
 
 export RESULTS_DIR=$RESULTS_DIR || $(dirname $0)
 
