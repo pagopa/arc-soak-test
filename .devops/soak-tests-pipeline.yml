@@ -25,6 +25,7 @@ parameters:
     default: "getTransactions"
     values:
       - getTransactions
+      - getUserInfo
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -69,6 +70,9 @@ variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
   - name: k6Test_getTransactions
     value: transactions/getTransactions
+
+  - name: k6Test_getUserInfo
+    value: auth/getUserInfo
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
