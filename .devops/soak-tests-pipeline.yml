@@ -117,7 +117,6 @@ jobs:
                       -v $(pwd):/app \
                       --workdir "/app" \
                       -e RESULTS_DIR=/app \
-                      -e TARGET_ENV=${{ parameters.TARGET_ENV }} \
                       -e USE_INTERNAL_ACCESS_ENV=${{ parameters.USE_INTERNAL_ACCESS_ENV }} \
                       -e SCENARIO_TYPE_ENV=${{ variables.SCENARIO_TYPE_ENV }} \
                       \
@@ -132,7 +131,7 @@ jobs:
                       \
                       --entrypoint /app/runAll.sh \
                       grafana/k6:latest \
-                      ./src/tests/${{k6Test}}.js
+                      ${{ parameters.TARGET_ENV }} ${{k6Test}}.js
                   condition: true
                   displayName: Run k6 ${{k6Test}}.js on ${{ parameters.TARGET_ENV }}
 
