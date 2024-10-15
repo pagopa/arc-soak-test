@@ -71,6 +71,9 @@ variables:
   - name: k6Test_getTransactions
     value: transactions/getTransactions
 
+  - name: k6Test_getUserInfo
+    value: auth/getUserInfo
+
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
     value: ${{ variables[format('k6Test_{0}', parameters.SCRIPT)] }}
