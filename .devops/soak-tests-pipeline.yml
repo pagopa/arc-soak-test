@@ -25,6 +25,7 @@ parameters:
     default: "getTransactions"
     values:
       - getTransactions
+      - getUserInfo
 
   - name: "SCENARIO"
     displayName: "Soak test type"
