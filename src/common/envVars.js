@@ -65,7 +65,7 @@ export const CONFIG = {
   THRESHOLDS: {
     DURATIONS: {
       AVG: parseInt(coalesce(__ENV.THRESHOLDS_API_MAX_AVG_MS_ENV, 500)),
-      MAX: parseInt(coalesce(__ENV.THRESHOLDS_API_MAX_MS_ENV, 1000)),
+      MAX: parseInt(coalesce(__ENV.THRESHOLDS_API_MAX_MAX_MS_ENV, 1000)),
       P90: parseInt(coalesce(__ENV.THRESHOLDS_API_MAX_P90_MS_ENV, 800)),
       P95: parseInt(coalesce(__ENV.THRESHOLDS_API_MAX_P95_MS_ENV, 1000)),
     },
