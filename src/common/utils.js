@@ -5,6 +5,7 @@ import {
 import papaparse from "https://jslib.k6.io/papaparse/5.1.1/index.js";
 import exec from "k6/execution";
 import { getAuthTokenTestUser } from "../api/auth.js";
+import { notices } from "../api/notices.js";
 import { logResult } from "./dynamicScenarios/utils.js";
 
 export function getAuthToken() {
@@ -14,6 +15,16 @@ export function getAuthToken() {
     abort("Cannot retrieve authTokenTestUser");
   }
   return result.json().accessToken;
+}
+
+export function getNoticesList(token){
+  const result = notices(token)
+  if (result.status !== 200) {
+      logResult(result);
+      abort("Cannot retrieve authTokenTestUser");
+    }
+    console.log(result.json().notices.map(item => item.eventId));
+    return result.json().notices.map(item => item.eventId);
 }
 
 export function randomFiscalCode() {
