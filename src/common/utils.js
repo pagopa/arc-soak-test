@@ -21,7 +21,7 @@ export function getNoticesList(token){
   const result = notices(token)
   if (result.status !== 200) {
       logResult(result);
-      abort("Cannot retrieve authTokenTestUser");
+      abort("Cannot retrieve notices list");
     }
     console.log(result.json().notices.map(item => item.eventId));
     return result.json().notices.map(item => item.eventId);
