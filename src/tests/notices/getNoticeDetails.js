@@ -24,9 +24,10 @@ export const options = defaultApiOptionsBuilder(
 export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 
 export function setup() {
+  const authToken = getAuthToken():
   return {
-    token: getAuthToken(),
-    noticesList: getNoticesList(getAuthToken())
+    token: authToken,
+    noticesList: getNoticesList(authToken)
   };
 }
 
