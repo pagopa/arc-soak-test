@@ -75,7 +75,7 @@ variables:
   - name: k6Test_getUserInfo
     value: auth/getUserInfo
 
-  - name: k6Test_getNotices
+  - name: k6Test_noticesList
     value: notices/noticesList
 
   # Resolved list of k6 script to execute
