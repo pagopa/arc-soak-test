@@ -9,14 +9,14 @@ import { logErrorResult } from "../../common/dynamicScenarios/utils.js";
 import { getAuthToken } from "../../common/utils.js";
 
 const application = "notices";
-const testName = "noticesList";
+const testName = "getNoticesList";
 
 // Dynamic scenarios' K6 configuration
 export const options = defaultApiOptionsBuilder(
   application,
   testName,
   [
-    NOTICES_API_NAMES.notices,
+    NOTICES_API_NAMES.getNoticesList,
   ] // applying apiName tags to thresholds
 );
 

@@ -26,7 +26,7 @@ parameters:
     values:
       - getTransactions
       - getUserInfo
-      - noticesList
+      - getNoticesList
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -75,8 +75,8 @@ variables:
   - name: k6Test_getUserInfo
     value: auth/getUserInfo
 
-  - name: k6Test_noticesList
-    value: notices/noticesList
+  - name: k6Test_getNoticesList
+    value: notices/getNoticesList
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
