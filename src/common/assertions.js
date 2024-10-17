@@ -34,6 +34,12 @@ export function statusNoContent() {
   };
 }
 
+export function statusRedirect() {
+  return function doCheck(res) {
+    check(res, { "HTTP status is 302": (r) => r.status === 302 });
+  };
+}
+
 export function statusPermanentRedirect() {
   return function doCheck(res) {
     check(res, { "HTTP status is 308": (r) => r.status === 308 });

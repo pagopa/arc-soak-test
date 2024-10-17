@@ -24,13 +24,14 @@ parameters:
     type: string
     default: "getTransactions"
     values:
-      - getTransactions
+      - getAuthenticationEndpoint
       - getUserInfo
       - getNoticesList
       - getNoticeDetails
       - getNoticeReceipt
       - getPaymentNotices
       - getZendeskAssistanceToken
+      - getTransactions
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -93,6 +94,9 @@ variables:
 
   - name: k6Test_getZendeskAssistanceToken
     value: tokenAssistance/getZendeskAssistanceToken
+
+  - name: k6Test_getAuthenticationEndpoint
+    value: auth/getAuthenticationEndpoint
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
