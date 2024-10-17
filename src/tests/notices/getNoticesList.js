@@ -27,8 +27,17 @@ export function setup() {
   return { token: getAuthToken() };
 }
 
+export function getNoticesList(token){
+  const result = notices(token)
+  if (result.status !== 200) {
+      logResult(result);
+      abort("Cannot retrieve notices list");
+    }
+    return result;
+}
+
 export default (data) => {
-  const getNoticesListResult = notices(data.token);
+  const getNoticesListResult = getNoticesList(data.token);
 
   assert(getNoticesListResult, [statusOk()]);
 
