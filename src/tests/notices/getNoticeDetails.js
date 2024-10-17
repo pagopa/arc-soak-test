@@ -11,7 +11,6 @@ import { getNoticesList } from "./getNoticesList.js"
 
 const application = "notices";
 const testName = "getNoticeDetails";
-const ERROR_MESSAGE = "No elements found in notice list please restart test with at least one element";
 
 // Dynamic scenarios' K6 configuration
 export const options = defaultApiOptionsBuilder(
@@ -30,7 +29,7 @@ export function setup() {
   const noticesList = getNoticesList(authToken).json().notices;
 
   if(noticesList.length === 0){
-    abort(ERROR_MESSAGE)
+    abort("No elements found in notice list please restart test with at least one element");
   }
 
   return {
