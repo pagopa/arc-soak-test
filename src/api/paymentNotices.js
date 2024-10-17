@@ -1,7 +1,7 @@
 import http from "k6/http";
 import { logResult } from "../common/dynamicScenarios/utils.js";
 import { buildDefaultParams } from "../common/envVars.js";
-import { getBaseUrl, getInnerBaseUrl } from "../common/environment.js";
+import { getBaseUrl } from "../common/environment.js";
 
 export const PAYMENT_NOTICES_API_NAMES = {
   getPaymentNotices: "paymentNotices/getPaymentNotices",
