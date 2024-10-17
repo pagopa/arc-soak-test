@@ -28,9 +28,14 @@ export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 export function setup() {
   const authToken = getAuthToken();
   const noticesList = getNoticesList(authToken).json().notices;
+
+  if(noticesList.length === 0){
+    abort(ERROR_MESSAGE)
+  }
+
   return {
     token: authToken,
-    notices: noticesList.length === 0 ? abort(ERROR_MESSAGE) : noticesList.map(item => item.eventId),
+    notices: noticesList.map(item => item.eventId),
   };
 }
 
