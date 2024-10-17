@@ -29,6 +29,7 @@ parameters:
       - getNoticesList
       - getNoticeDetails
       - getNoticeReceipt
+      - getPaymentNotices
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -85,6 +86,9 @@ variables:
 
   - name: k6Test_getNoticeReceipt
     value: notices/getNoticeReceipt
+
+  - name: k6Test_getPaymentNotices
+    value: paymentNotices/getPaymentNotices
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
