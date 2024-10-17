@@ -6,7 +6,7 @@ import { getBaseUrl, getInnerBaseUrl } from "../common/environment.js";
 export const AUTH_API_NAMES = {
   getAuthTokenTestUser: "auth/getAuthTokenTestUser",
   getUserInfo: "auth/getUserInfo",
-  getAuthenticationEndpoint: "/login/oneidentity"
+  getAuthenticationEndpoint: "auth/getAuthenticationEndpoint"
 };
 
 const innerBaseUrl = getInnerBaseUrl();
