@@ -40,14 +40,14 @@ export function setup() {
 
 export default (data) => {
   const eventId = getTestEntity(data.notices);
-  const getNoticesListResult = noticeReceipt(data.token,eventId);
+  const getNoticesReceiptResult = noticeReceipt(data.token,eventId);
 
-  assert(getNoticesListResult, [statusOk()]);
+  assert(getNoticesReceiptResult, [statusOk()]);
 
-  if (getNoticesListResult.status !== 200) {
+  if (getNoticesReceiptResult.status !== 200) {
     logErrorResult(
-      `Unexpected getNoticesList status`,
-      getNoticesListResult,
+      `Unexpected getNoticesReceipt status`,
+      getNoticesReceiptResult,
       true
     );
     return;
