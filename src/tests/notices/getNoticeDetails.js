@@ -6,11 +6,12 @@ import {
 import defaultHandleSummaryBuilder from "../../common/handleSummaryBuilder.js";
 import { defaultApiOptionsBuilder } from "../../common/dynamicScenarios/defaultOptions.js";
 import { logErrorResult } from "../../common/dynamicScenarios/utils.js";
-import { getAuthToken } from "../../common/utils.js";
+import { getAuthToken,abort,getTestEntity } from "../../common/utils.js";
 import { getNoticesList } from "./getNoticesList.js"
 
 const application = "notices";
 const testName = "getNoticeDetails";
+const ERROR_MESSAGE = "No elements found in notice list please restart test with at least one element";
 
 // Dynamic scenarios' K6 configuration
 export const options = defaultApiOptionsBuilder(
@@ -26,16 +27,19 @@ export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 
 export function setup() {
   const authToken = getAuthToken();
+  const noticesList = getNoticesList(authToken).json().notices;
   return {
     token: authToken,
-    noticesList: getNoticesList(authToken).json().notices.map(item => item.eventId)
+    notices: noticesList.length === 0 ? abort(ERROR_MESSAGE) : noticesList.map(item => item.eventId),
   };
 }
 
 export default (data) => {
-  const eventId = data.noticesList.at(Math.floor(Math.random() * data.noticesList.length));
+  const eventId = getTestEntity(data.notices);
   const getNoticesListResult = noticeDetails(data.token,eventId);
+
   assert(getNoticesListResult, [statusOk()]);
+
   if (getNoticesListResult.status !== 200) {
     logErrorResult(
       `Unexpected getNoticesList status`,
