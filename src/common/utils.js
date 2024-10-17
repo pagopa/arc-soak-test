@@ -5,9 +5,25 @@ import {
 import papaparse from "https://jslib.k6.io/papaparse/5.1.1/index.js";
 import exec from "k6/execution";
 import { getAuthTokenTestUser } from "../api/auth.js";
-import { notices } from "../api/notices.js";
-import { logResult } from "./dynamicScenarios/utils.js";
+import { getScenarioTestEntity, logResult } from "./dynamicScenarios/utils.js";
 
+/** It will return o1 if define, otherwise it will return o2 */
+export function coalesce(o1, o2) {
+  return o1 !== undefined && o1 !== null ? o1 : o2;
+}
+
+/** It will stop the test execution */
+export function abort(description) {
+  description = `Aborting execution due to: ${description}`;
+  if (exec) {
+    console.error(description);
+    exec.test.abort();
+  } else {
+    throw new Error(description);
+  }
+}
+
+/** It will retrieve the TestUser auth token */
 export function getAuthToken() {
   const result = getAuthTokenTestUser();
   if (result.status !== 200) {
@@ -17,14 +33,9 @@ export function getAuthToken() {
   return result.json().accessToken;
 }
 
-export function getNoticesList(token){
-  const result = notices(token)
-  if (result.status !== 200) {
-      logResult(result);
-      abort("Cannot retrieve notices list");
-    }
-    console.log(result.json().notices.map(item => item.eventId));
-    return result.json().notices.map(item => item.eventId);
+/** Given a list of test entities, it will return 1 of them starting from the first once reached the end */
+export function getTestEntity(testEntities) {
+  return getScenarioTestEntity(testEntities);
 }
 
 export function randomFiscalCode() {
@@ -45,83 +56,6 @@ export function randomFiscalCode() {
   return [name, birth_y, birth_m, birth_d, final].join("");
 }
 
-export function randomDate(start, end) {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
-}
-
-export function randomVatNumber() {
-  return randomIntBetween(10000000000, 99999999999);
-}
-
-export function chooseRandomPanFromList(panList) {
-  const index = randomIntBetween(0, panList.list.length - 1);
-  return panList.list[index];
-}
-
-export function getRelativePathToRootFolder() {
-  try {
-    open(".");
-  } catch (error) {
-    const testFolderMatch = error.message.match("(?:\\\\|/)test(?:\\\\|/)");
-    if (!testFolderMatch) {
-      console.log(
-        "WARNING! Unexpected folder structure, cannot found test folder"
-      );
-      return "../..";
-    }
-    const path = error.message.substr(testFolderMatch.index - 1);
-    return path
-      .match(/(\\\\|\/)/g)
-      .map((x) => "..")
-      .join("/");
-  }
-  return "../..";
-}
-
-export const csvDelimiter = coalesce(__ENV.CSV_DELIMITER, "");
-
-export function getCsvData(filePath, hasHeader) {
-  if (hasHeader === undefined) {
-    hasHeader = true;
-  }
-
-  return papaparse
-    .parse(open(filePath), {
-      header: hasHeader,
-      delimiter: csvDelimiter,
-    })
-    .data.filter((r) => Object.values(r)[0]);
-}
-
-export function getFCList() {
-  return getCsvData(`${getRelativePathToRootFolder()}/assets/fc_pgpans.csv`);
-}
-
-export function getUserIdsList() {
-  return getCsvData(`${getRelativePathToRootFolder()}/assets/userIdList.csv`);
-}
-
-export function getFCPanList() {
-  return getCsvData(`${getRelativePathToRootFolder()}/assets/fc_pgpans.csv`);
-}
-export function getFCIbanList() {
-  return getCsvData(`${getRelativePathToRootFolder()}/assets/fc_iban.csv`);
-}
-
-export function getMerchantList() {
-  return getCsvData(
-    `${getRelativePathToRootFolder()}/assets/merchantList_150.csv`
-  );
-}
-
-export function getMerchantIdList() {
-  return getCsvData(
-    `${getRelativePathToRootFolder()}/assets/merchantIdList.csv`
-  );
-}
-
 function getFiscalCodeMonth(month) {
   const monthDict = {
     1: "A",
@@ -140,16 +74,47 @@ function getFiscalCodeMonth(month) {
   return monthDict[month];
 }
 
-export function coalesce(o1, o2) {
-  return o1 !== undefined && o1 !== null ? o1 : o2;
+export function randomDate(start, end) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
 }
 
-export function abort(description) {
-  description = `Aborting execution due to: ${description}`;
-  if (exec) {
-    console.error(description);
-    exec.test.abort();
-  } else {
-    throw new Error(description);
+export function randomVatNumber() {
+  return randomIntBetween(10000000000, 99999999999);
+}
+
+export function getRelativePathToRootFolder() {
+  try {
+    open(".");
+  } catch (error) {
+    const testFolderMatch = error.message.match("(?:\\\\|/)src(?:\\\\|/)");
+    if (!testFolderMatch) {
+      console.log(
+        "WARNING! Unexpected folder structure, cannot found src folder"
+      );
+      return "../..";
+    }
+    const path = error.message.substr(testFolderMatch.index - 1);
+    return path
+      .match(/(\\\\|\/)/g)
+      .map((x) => "..")
+      .join("/");
   }
+  return "../..";
+}
+
+export const csvDelimiter = coalesce(__ENV.CSV_DELIMITER, ";");
+
+export function getCsvData(filePath, hasHeader) {
+  if (hasHeader === undefined) {
+    hasHeader = true;
+  }
+
+  return papaparse
+    .parse(open(filePath), {
+      header: hasHeader,
+      delimiter: csvDelimiter,
+    })
+    .data.filter((r) => Object.values(r)[0]);
 }
