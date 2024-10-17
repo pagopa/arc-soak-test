@@ -1,22 +1,23 @@
 import { assert, statusOk } from "../../common/assertions.js";
 import {
-  notices,
+  noticeDetails,
   NOTICES_API_NAMES,
 } from "../../api/notices.js";
 import defaultHandleSummaryBuilder from "../../common/handleSummaryBuilder.js";
 import { defaultApiOptionsBuilder } from "../../common/dynamicScenarios/defaultOptions.js";
 import { logErrorResult } from "../../common/dynamicScenarios/utils.js";
-import { getAuthToken } from "../../common/utils.js";
+import { getAuthToken,abort,getTestEntity } from "../../common/utils.js";
+import { getNoticesList } from "./getNoticesList.js"
 
 const application = "notices";
-const testName = "getNoticesList";
+const testName = "getNoticeDetails";
 
 // Dynamic scenarios' K6 configuration
 export const options = defaultApiOptionsBuilder(
   application,
   testName,
   [
-    NOTICES_API_NAMES.getNoticesList,
+    NOTICES_API_NAMES.getNoticeDetails,
   ] // applying apiName tags to thresholds
 );
 
@@ -24,20 +25,22 @@ export const options = defaultApiOptionsBuilder(
 export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 
 export function setup() {
-  return { token: getAuthToken() };
-}
+  const authToken = getAuthToken();
+  const noticesList = getNoticesList(authToken).json().notices;
 
-export function getNoticesList(token){
-  const result = notices(token)
-  if (result.status !== 200) {
-      logResult(result);
-      abort("Cannot retrieve notices list");
-    }
-    return result;
+  if(noticesList.length === 0){
+    abort("No elements found in notice list please restart test with at least one element");
+  }
+
+  return {
+    token: authToken,
+    notices: noticesList.map(item => item.eventId),
+  };
 }
 
 export default (data) => {
-  const getNoticesListResult = getNoticesList(data.token);
+  const eventId = getTestEntity(data.notices);
+  const getNoticesListResult = noticeDetails(data.token,eventId);
 
   assert(getNoticesListResult, [statusOk()]);
 
@@ -49,4 +52,5 @@ export default (data) => {
     );
     return;
   }
+
 };
