@@ -6,6 +6,7 @@ import { getBaseUrl, getInnerBaseUrl } from "../common/environment.js";
 export const NOTICES_API_NAMES = {
   getNoticesList: "notices/getNoticesList",
   getNoticeDetails: "notices/getNoticeDetails",
+  getNoticeReceipt: "notices/getNoticeReceipt",
 };
 
 const baseUrl = getBaseUrl();
@@ -24,6 +25,15 @@ export function noticeDetails(token,noticeId) {
   const myParams = buildDefaultParams(apiName, token);
 
   const res = http.get(`${baseUrl}/notices/${noticeId}`, myParams);
+  logResult(apiName, res);
+  return res;
+}
+
+export function noticeReceipt(token,noticeId) {
+  const apiName = NOTICES_API_NAMES.getNoticeReceipt;
+  const myParams = buildDefaultParams(apiName, token);
+
+  const res = http.get(`${baseUrl}/notices/${noticeId}/receipt`, myParams);
   logResult(apiName, res);
   return res;
 }
