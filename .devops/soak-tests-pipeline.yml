@@ -25,6 +25,7 @@ parameters:
     default: "getTransactions"
     values:
       - getAuthenticationEndpoint
+      - getLogoutEndpoint
       - getUserInfo
       - getNoticesList
       - getNoticeDetails
@@ -97,6 +98,9 @@ variables:
 
   - name: k6Test_getAuthenticationEndpoint
     value: auth/getAuthenticationEndpoint
+
+  - name: k6Test_getLogoutEndpoint
+    value: auth/getLogoutEndpoint
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
