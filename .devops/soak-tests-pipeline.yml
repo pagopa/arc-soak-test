@@ -30,6 +30,7 @@ parameters:
       - getNoticeDetails
       - getNoticeReceipt
       - getPaymentNotices
+      - getZendeskAssistanceToken
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -89,6 +90,9 @@ variables:
 
   - name: k6Test_getPaymentNotices
     value: paymentNotices/getPaymentNotices
+
+  - name: k6Test_getZendeskAssistanceToken
+    value: tokenAssistance/getZendeskAssistanceToken
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
