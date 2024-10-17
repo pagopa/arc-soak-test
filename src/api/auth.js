@@ -6,7 +6,8 @@ import { getBaseUrl, getInnerBaseUrl } from "../common/environment.js";
 export const AUTH_API_NAMES = {
   getAuthTokenTestUser: "auth/getAuthTokenTestUser",
   getUserInfo: "auth/getUserInfo",
-  getAuthenticationEndpoint: "auth/getAuthenticationEndpoint"
+  getAuthenticationEndpoint: "auth/getAuthenticationEndpoint",
+  getLogoutEndpoint: "auth/getLogoutEndpoint",
 };
 
 const innerBaseUrl = getInnerBaseUrl();
@@ -35,6 +36,15 @@ export function login(){
   const myParams = buildDefaultParams(apiName);
 
   const res = http.get(`${baseUrl}/login/oneidentity`, myParams);
+  logResult(apiName, res);
+  return res;
+}
+
+export function logout(token){
+  const apiName = AUTH_API_NAMES.getLogoutEndpoint;
+  const myParams = buildDefaultParams(apiName, token);
+
+  const res = http.get(`${baseUrl}/logout`, myParams);
   logResult(apiName, res);
   return res;
 }
