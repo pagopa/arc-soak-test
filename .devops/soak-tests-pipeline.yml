@@ -32,6 +32,11 @@ parameters:
       - getNoticeReceipt
       - getPaymentNotices
       - getZendeskAssistanceToken
+      - runAll
+      - runAllAuth
+      - runAllNotice
+      - runAllPaymentNotice
+      - runAllTokenAssistance
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -100,7 +105,18 @@ variables:
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
-    value: ${{ variables[format('k6Test_{0}', parameters.SCRIPT)] }}
+  - ${{ if eq(parameters.SCRIPT, 'runAll') }}:
+      value: [variables.k6Test_getUserInfo,variables.k6Test_getNoticesList,variables.k6Test_getNoticeReceipt,variables.k6Test_getPaymentNotices,variables.k6Test_getZendeskAssistanceToken,variables.k6Test_getAuthenticationEndpoint,variables.k6Test_getLogoutEndpoint]
+  - ${{ if eq(parameters.SCRIPT, 'runAllAuth') }}:
+      value: [variables.k6Test_getUserInfo",variables.k6Test_getAuthenticationEndpoint,variables.k6Test_getLogoutEndpoint]
+  - ${{ if eq(parameters.SCRIPT, 'runAllNotice') }}:
+      value: [variables.k6Test_getNoticesList,variables.k6Test_getNoticeDetails",variables.k6Test_getNoticeReceipt]
+  - ${{ if eq(parameters.SCRIPT, 'runAllPaymentNotice') }}:
+      value: [variables.k6Test_getPaymentNotices]
+  - ${{ if eq(parameters.SCRIPT, 'runAllTokenAssistance') }}:
+      value: [variables.k6Test_getZendeskAssistanceToken]
+  - ${{ else }}:
+      value: ${{ variables[format('k6Test_{0}', parameters.SCRIPT)] }}
 
   # Setting env specific settings
   - ${{ if eq(parameters.TARGET_ENV, 'dev') }}:
