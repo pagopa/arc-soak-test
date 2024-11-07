@@ -22,7 +22,7 @@ parameters:
   - name: "SCRIPT"
     displayName: "Script name"
     type: string
-    default: "getTransactions"
+    default: "getAuthenticationEndpoint"
     values:
       - getAuthenticationEndpoint
       - getLogoutEndpoint
@@ -32,7 +32,6 @@ parameters:
       - getNoticeReceipt
       - getPaymentNotices
       - getZendeskAssistanceToken
-      - getTransactions
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -75,9 +74,6 @@ parameters:
 
 variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
-  - name: k6Test_getTransactions
-    value: transactions/getTransactions
-
   - name: k6Test_getUserInfo
     value: auth/getUserInfo
 
