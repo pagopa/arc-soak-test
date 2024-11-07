@@ -80,43 +80,47 @@ parameters:
 variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
   - name: k6Test_getUserInfo
-    value: auth/getUserInfo
+    value: auth/getUserInfo.js
 
   - name: k6Test_getNoticesList
-    value: notices/getNoticesList
+    value: notices/getNoticesList.js
 
   - name: k6Test_getNoticeDetails
-    value: notices/getNoticeDetails
+    value: notices/getNoticeDetails.js
 
   - name: k6Test_getNoticeReceipt
-    value: notices/getNoticeReceipt
+    value: notices/getNoticeReceipt.js
 
   - name: k6Test_getPaymentNotices
-    value: paymentNotices/getPaymentNotices
+    value: paymentNotices/getPaymentNotices.js
 
   - name: k6Test_getZendeskAssistanceToken
-    value: tokenAssistance/getZendeskAssistanceToken
+    value: tokenAssistance/getZendeskAssistanceToken.js
 
   - name: k6Test_getAuthenticationEndpoint
-    value: auth/getAuthenticationEndpoint
+    value: auth/getAuthenticationEndpoint.js
 
   - name: k6Test_getLogoutEndpoint
-    value: auth/getLogoutEndpoint
+    value: auth/getLogoutEndpoint.js
+
+  - name: k6Test_runAll
+    value: /
+
+  - name: k6Test_runAllAuth
+    value: auth/
+
+  - name: k6Test_runAllNotice
+    value: notices/
+
+  - name: k6Test_runAllPaymentNotice
+    value: paymentNotices/
+
+  - name: k6Test_runAllTokenAssistance
+    value: tokenAssistance/
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
-  - ${{ if eq(parameters.SCRIPT, 'runAll') }}:
-      value: [variables.k6Test_getUserInfo,variables.k6Test_getNoticesList,variables.k6Test_getNoticeReceipt,variables.k6Test_getPaymentNotices,variables.k6Test_getZendeskAssistanceToken,variables.k6Test_getAuthenticationEndpoint,variables.k6Test_getLogoutEndpoint]
-  - ${{ if eq(parameters.SCRIPT, 'runAllAuth') }}:
-      value: [variables.k6Test_getUserInfo",variables.k6Test_getAuthenticationEndpoint,variables.k6Test_getLogoutEndpoint]
-  - ${{ if eq(parameters.SCRIPT, 'runAllNotice') }}:
-      value: [variables.k6Test_getNoticesList,variables.k6Test_getNoticeDetails",variables.k6Test_getNoticeReceipt]
-  - ${{ if eq(parameters.SCRIPT, 'runAllPaymentNotice') }}:
-      value: [variables.k6Test_getPaymentNotices]
-  - ${{ if eq(parameters.SCRIPT, 'runAllTokenAssistance') }}:
-      value: [variables.k6Test_getZendeskAssistanceToken]
-  - ${{ else }}:
-      value: ${{ variables[format('k6Test_{0}', parameters.SCRIPT)] }}
+    value: ${{ variables[format('k6Test_{0}', parameters.SCRIPT)] }}
 
   # Setting env specific settings
   - ${{ if eq(parameters.TARGET_ENV, 'dev') }}:
@@ -175,7 +179,7 @@ jobs:
                       \
                       --entrypoint /app/runAll.sh \
                       grafana/k6:latest \
-                      ${{ parameters.TARGET_ENV }} ${{k6Test}}.js
+                      ${{ parameters.TARGET_ENV }} ${{k6Test}}
                   condition: true
                   displayName: Run k6 ${{k6Test}}.js on ${{ parameters.TARGET_ENV }}
 
