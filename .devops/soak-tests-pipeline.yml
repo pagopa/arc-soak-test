@@ -22,21 +22,26 @@ parameters:
   - name: "SCRIPT"
     displayName: "Script name"
     type: string
-    default: "getAuthenticationEndpoint"
+    default: "runAll"
     values:
-      - getAuthenticationEndpoint
-      - getLogoutEndpoint
-      - getUserInfo
-      - getNoticesList
-      - getNoticeDetails
-      - getNoticeReceipt
-      - getPaymentNotices
-      - getZendeskAssistanceToken
       - runAll
-      - runAllAuth
-      - runAllNotice
-      - runAllPaymentNotice
-      - runAllTokenAssistance
+
+      - runAll_Auth
+      - Auth_getAuthenticationEndpoint
+      - Auth_getLogoutEndpoint
+      - Auth_getUserInfo
+
+      - runAll_Notice
+      - Notice_getNoticesList
+      - Notice_getNoticeDetails
+      - Notice_getNoticeReceipt
+
+      - runAll_PaymentNotice
+      - PaymentNotice_getPaymentNotices
+
+      - runAll_TokenAssistance
+      - TokenAssistance_getZendeskAssistanceToken
+
 
   - name: "SCENARIO"
     displayName: "Soak test type"
@@ -79,43 +84,43 @@ parameters:
 
 variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
-  - name: k6Test_getUserInfo
+  - name: k6Test_Auth_getUserInfo
     value: auth/getUserInfo.js
 
-  - name: k6Test_getNoticesList
+  - name: k6Test_Notice_getNoticesList
     value: notices/getNoticesList.js
 
-  - name: k6Test_getNoticeDetails
+  - name: k6Test_Notice_getNoticeDetails
     value: notices/getNoticeDetails.js
 
-  - name: k6Test_getNoticeReceipt
+  - name: k6Test_Notice_getNoticeReceipt
     value: notices/getNoticeReceipt.js
 
-  - name: k6Test_getPaymentNotices
+  - name: k6Test_PaymentNotice_getPaymentNotices
     value: paymentNotices/getPaymentNotices.js
 
-  - name: k6Test_getZendeskAssistanceToken
+  - name: k6Test_TokenAssistance_getZendeskAssistanceToken
     value: tokenAssistance/getZendeskAssistanceToken.js
 
-  - name: k6Test_getAuthenticationEndpoint
+  - name: k6Test_Auth_getAuthenticationEndpoint
     value: auth/getAuthenticationEndpoint.js
 
-  - name: k6Test_getLogoutEndpoint
+  - name: k6Test_Auth_getLogoutEndpoint
     value: auth/getLogoutEndpoint.js
 
   - name: k6Test_runAll
     value: /
 
-  - name: k6Test_runAllAuth
+  - name: k6Test_runAll_Auth
     value: auth/
 
-  - name: k6Test_runAllNotice
+  - name: k6Test_runAll_Notice
     value: notices/
 
-  - name: k6Test_runAllPaymentNotice
+  - name: k6Test_runAll_PaymentNotice
     value: paymentNotices/
 
-  - name: k6Test_runAllTokenAssistance
+  - name: k6Test_runAll_TokenAssistance
     value: tokenAssistance/
 
   # Resolved list of k6 script to execute
