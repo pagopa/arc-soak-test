@@ -84,6 +84,13 @@ parameters:
 
 variables:
   # Comma separated list of tests to execute based on the SCRIPT parameter (if some test require the execution of more than one test, eg data preparation)
+  - name: k6Test_runAll
+    value: ./
+
+
+  - name: k6Test_runAll_Auth
+    value: auth/
+
   - name: k6Test_Auth_getAuthenticationEndpoint
     value: auth/getAuthenticationEndpoint.js
 
@@ -94,6 +101,9 @@ variables:
     value: auth/getLogoutEndpoint.js
 
 
+
+  - name: k6Test_runAll_Notice
+    value: notices/
 
   - name: k6Test_Notice_getNoticesList
     value: notices/getNoticesList.js
@@ -106,30 +116,21 @@ variables:
 
 
 
+  - name: k6Test_runAll_PaymentNotice
+    value: paymentNotices/
+
   - name: k6Test_PaymentNotice_getPaymentNotices
     value: paymentNotices/getPaymentNotices.js
 
 
 
+  - name: k6Test_runAll_TokenAssistance
+    value: tokenAssistance/
+
   - name: k6Test_TokenAssistance_getZendeskAssistanceToken
     value: tokenAssistance/getZendeskAssistanceToken.js
 
 
-
-  - name: k6Test_runAll
-    value: ./
-
-  - name: k6Test_runAll_Auth
-    value: auth/
-
-  - name: k6Test_runAll_Notice
-    value: notices/
-
-  - name: k6Test_runAll_PaymentNotice
-    value: paymentNotices/
-
-  - name: k6Test_runAll_TokenAssistance
-    value: tokenAssistance/
 
   # Resolved list of k6 script to execute
   - name: SCRIPTS_TO_EXECUTE
