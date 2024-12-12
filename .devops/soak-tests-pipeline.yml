@@ -194,11 +194,11 @@ jobs:
                       --entrypoint /app/runAll.sh \
                       grafana/k6:latest \
                       ${{ parameters.TARGET_ENV }} ${{k6Test}}
-                  condition: true
+                  condition: succeeded()
                   displayName: Run k6 ${{k6Test}} on ${{ parameters.TARGET_ENV }}
 
             - task: PublishTestResults@2
-              condition: true
+              condition: succeeded()
               displayName: "Publishing test results"
               inputs:
                 testResultsFormat: "JUnit"
@@ -208,7 +208,7 @@ jobs:
 
             - task: PublishPipelineArtifact@1
               displayName: "Publishing test artifacts"
-              condition: true
+              condition: succeeded()
               inputs:
                 artifact: "results"
                 targetPath: "results"
