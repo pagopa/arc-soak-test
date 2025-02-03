@@ -27,7 +27,6 @@ export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 export function setup() {
   const authToken = getAuthToken();
   const paymentNoticesList = getPaymentNotices(authToken).json().paymentNoticesList;
-  const searchParams = new URLSearchParams();
 
     if(paymentNoticesList.length === 0){
       abort("No elements found in payment notices list please restart test with at least one element");
@@ -36,7 +35,7 @@ export function setup() {
   return { 
     token: authToken,
     paymentNotices: paymentNoticesList.map(item => item.iupd),
-    params: (searchParams.append('paTaxCode', paymentNoticesList.map(item => item.paTaxCode))).toString()
+    params: (new URLSearchParams(['paTaxCode', paymentNoticesList.map(item => item.paTaxCode)])).toString()
   };
   
 }
