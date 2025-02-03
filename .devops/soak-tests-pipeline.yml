@@ -38,6 +38,7 @@ parameters:
 
       - runAll_PaymentNotice
       - PaymentNotice_getPaymentNotices
+      - PaymentNotice_getPaymentNoticesDetails
 
       - runAll_TokenAssistance
       - TokenAssistance_getZendeskAssistanceToken
