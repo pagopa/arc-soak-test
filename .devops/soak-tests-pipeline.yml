@@ -38,6 +38,7 @@ parameters:
 
       - runAll_PaymentNotice
       - PaymentNotice_getPaymentNotices
+      - PaymentNotice_getPaymentNoticesDetails
 
       - runAll_TokenAssistance
       - TokenAssistance_getZendeskAssistanceToken
@@ -122,6 +123,8 @@ variables:
   - name: k6Test_PaymentNotice_getPaymentNotices
     value: paymentNotices/getPaymentNotices.js
 
+  - name: k6Test_PaymentNotice_getPaymentNoticesDetails
+    value: paymentNotices/getPaymentNoticesDetails.js
 
 
   - name: k6Test_runAll_TokenAssistance
