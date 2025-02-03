@@ -19,11 +19,11 @@ export function getPaymentNotices(token) {
   return res;
 }
 
-export function getPaymentNoticesDetails(token, iupd) {
+export function getPaymentNoticesDetails(token, iupd, paTaxCode) {
   const apiName = PAYMENT_NOTICES_API_NAMES.getPaymentNoticesDetails;
   const myParams = buildDefaultParams(apiName, token);
 
-  const res = http.get(`${baseUrl}/payment-notices/${iupd}`, myParams);
+  const res = http.get(`${baseUrl}/payment-notices/${iupd}?${paTaxCode}`, myParams);
   logResult(apiName, res);
   return res;
 }
