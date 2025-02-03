@@ -35,7 +35,7 @@ export function setup() {
   return { 
     token: authToken,
     paymentNotices: paymentNoticesList.map(item => item.iupd),
-    params: `paTaxCode=${paymentNoticesList.map(item => encodeURIComponent(item.paTaxCode)).join(',')}`
+    params: `paTaxCode=${encodeURIComponent(paymentNoticesList[0].paTaxCode)}`
   };
   
 }
