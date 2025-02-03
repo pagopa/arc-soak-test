@@ -35,7 +35,7 @@ export function setup() {
   return { 
     token: authToken,
     paymentNotices: paymentNoticesList.map(item => item.iupd),
-    params: `paTaxCode=${encodeURIComponent(paymentNoticesList[0].paTaxCode)}`
+    params: paymentNoticesList.map(item => item.paTaxCode),
   };
   
 }
@@ -43,7 +43,8 @@ export function setup() {
 export default (data) => {
   const iupd = getTestEntity(data.paymentNotices);
   const paTaxCode = getTestEntity(data.params);
-  const getPaymentNoticesDetailsResult = getPaymentNoticesDetails(data.token, iupd, paTaxCode);
+
+  const getPaymentNoticesDetailsResult = getPaymentNoticesDetails(data.token, iupd, `paTaxCode=${encodeURIComponent(paTaxCode)}`);
 
   assert(getPaymentNoticesDetailsResult, [statusOk()]);
 
