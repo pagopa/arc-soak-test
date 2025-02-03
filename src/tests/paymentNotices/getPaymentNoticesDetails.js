@@ -26,7 +26,7 @@ export const handleSummary = defaultHandleSummaryBuilder(application, testName);
 
 export function setup() {
   const authToken = getAuthToken();
-  const paymentNoticesList = getPaymentNotices(authToken).json().paymentNoticesList;
+  const paymentNoticesList = getPaymentNotices(authToken).json().paymentNotices;
 
     if(paymentNoticesList.length === 0){
       abort("No elements found in payment notices list please restart test with at least one element");
